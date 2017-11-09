@@ -37,6 +37,9 @@
               <button type="submit" title="Enroll" id="button_enroll" name="button_enroll" class="btn btn-primary btn-md">
                 Enroll students
               </button>
+              <button type="submit" title="SingleEnroll" id="button_enroll_single" name="button_enroll_single" class="btn btn-primary btn-md">
+                Enroll single student
+              </button>
             </div>
           </div>
         </div>
