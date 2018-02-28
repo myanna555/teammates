@@ -16,7 +16,7 @@
   </c:otherwise>
 </c:choose>
 <c:set var="STUDENT_COURSE_STATUS_YET_TO_JOIN" value="<%= Const.STUDENT_COURSE_STATUS_YET_TO_JOIN %>" />
-<table class="table table-bordered table-striped<c:if test="${not fromCourseDetailsPage}"> table-responsive margin-0</c:if>">
+<table class="main-instructor-list-table table table-bordered table-striped<c:if test="${not fromCourseDetailsPage}"> table-responsive margin-0</c:if>">
   <c:choose>
     <c:when test="${not empty sections}">
       <thead class="${tableHeaderClass}">
@@ -88,7 +88,7 @@
                   <c:out value="${section.sectionName}"/>
                 </td>
                 <td id="studentteam-c${courseIndex}.${sectionIndex}.${teamIndex}">
-                  <c:out value="${team.teamName}"/>
+                 <a href="/page/instructorCourseTeamPage?user=test%40example.com&courseid=anna.lambrix.gma-demo&${team.teamName}"> <c:out value="${team.teamName}"/></a>
                 </td>
                 <td id="studentname-c${courseIndex}.${studentIndex}">
                   <c:out value="${student.studentName}"/>

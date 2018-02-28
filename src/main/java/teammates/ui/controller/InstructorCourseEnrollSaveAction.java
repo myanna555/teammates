@@ -32,10 +32,36 @@ public class InstructorCourseEnrollSaveAction extends Action {
 
     @Override
     public ActionResult execute() throws EntityDoesNotExistException {
-
+        
+        
+        String studentsInfo="";
         String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
         Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
-        String studentsInfo = getRequestParamValue(Const.ParamsNames.STUDENTS_ENROLLMENT_INFO);
+        if(getRequestParamValue(Const.ParamsNames.STUDENTS_ENROLLMENT_INFO) !=null 
+                && !getRequestParamValue(Const.ParamsNames.STUDENTS_ENROLLMENT_INFO).isEmpty()) {
+        studentsInfo = getRequestParamValue(Const.ParamsNames.STUDENTS_ENROLLMENT_INFO);
+        }
+        else if(getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_PARAMS) !=null 
+                && getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_PARAMS).equalsIgnoreCase("true")) {
+            studentsInfo = "section|team|name|email|comment\n";
+            if(getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_SECTION) !=null)
+            studentsInfo+=getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_SECTION) + "|";
+            
+            if(getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_TEAM) !=null)
+                studentsInfo+=getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_TEAM) + "|";
+            
+            if(getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_NAME) !=null)
+                studentsInfo+=getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_NAME) + "|";
+            
+            if(getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_EMAIL) !=null)
+                studentsInfo+=getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_EMAIL) + "|";
+            
+            if(getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_COMMENT) !=null)
+                studentsInfo+=getRequestParamValue(Const.ParamsNames.SINGLE_ENROLLMENT_COMMENT);
+            
+            
+            
+        }
         String sanitizedStudentsInfo = SanitizationHelper.sanitizeForHtml(studentsInfo);
         Assumption.assertPostParamNotNull(Const.ParamsNames.STUDENTS_ENROLLMENT_INFO, studentsInfo);
 

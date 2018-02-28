@@ -67,6 +67,9 @@ public class ActionFactory {
         map(INSTRUCTOR_COURSE_STUDENT_DELETE_ALL, InstructorCourseStudentDeleteAllAction.class);
         map(INSTRUCTOR_COURSE_STUDENT_LIST_DOWNLOAD, InstructorCourseStudentListDownloadAction.class);
         map(INSTRUCTOR_COURSE_STUDENT_DETAILS_PAGE, InstructorCourseStudentDetailsPageAction.class);
+        
+        map(INSTRUCTOR_COURSE_TEAM_DETAILS_PAGE, InstructorCourseTeamDetailsPageAction.class);
+        
         map(INSTRUCTOR_COURSE_STUDENT_DETAILS_EDIT, InstructorCourseStudentDetailsEditPageAction.class);
         map(INSTRUCTOR_COURSE_STUDENT_DETAILS_EDIT_SAVE, InstructorCourseStudentDetailsEditSaveAction.class);
         map(INSTRUCTOR_EDIT_STUDENT_FEEDBACK_PAGE, InstructorEditStudentFeedbackPageAction.class);

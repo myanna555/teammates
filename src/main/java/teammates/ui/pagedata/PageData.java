@@ -564,6 +564,14 @@ public class PageData {
         link = addUserIdToUrl(link);
         return link;
     }
+    //need to add team name
+    public String getInstructorCourseTeamDetailsLink(String courseId, String teamName) {
+        String link = Const.ActionURIs.INSTRUCTOR_COURSE_TEAM_DETAILS_PAGE;
+        link = Url.addParamToUrl(link, Const.ParamsNames.COURSE_ID, courseId);
+        link = Url.addParamToUrl(link, Const.ParamsNames.STUDENT_EMAIL, teamName);
+        link = addUserIdToUrl(link);
+        return link;
+    }
 
     public String getInstructorCourseStudentDetailsEditLink(String courseId, String studentEmail) {
         String link = Const.ActionURIs.INSTRUCTOR_COURSE_STUDENT_DETAILS_EDIT;

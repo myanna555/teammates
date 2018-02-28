@@ -22,7 +22,7 @@
     <div class="form-group">
       <label class="col-sm-1 control-label">Team Name:</label>
       <div class="col-sm-11" id="<%= Const.ParamsNames.TEAM_NAME %>">
-        <p class="form-control-static">${fn:escapeXml(studentInfoTable.team)}</p>
+       <a href="/teamProfilePage.jsp>" <p class="form-control-static">${fn:escapeXml(studentInfoTable.team)}</p></a>
       </div>
     </div>
     <div class="form-group">

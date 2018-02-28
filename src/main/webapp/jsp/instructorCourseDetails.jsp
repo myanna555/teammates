@@ -7,7 +7,7 @@
 <c:set var="jsIncludes">
   <script type="text/javascript" src="/js/instructorCourseDetails.js"></script>
 </c:set>
-
+<h2>${data}</h2>
 <ti:instructorPage title="Course Details" jsIncludes="${jsIncludes}">
   <course:courseInformationContainer courseDetails="${data.courseDetails}"
       instructors="${data.instructors}"

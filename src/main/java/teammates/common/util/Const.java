@@ -645,6 +645,13 @@ public final class Const {
         public static final String INSTRUCTOR_INSTITUTION = "instructorinstitution";
         public static final String INSTRUCTOR_NAME = "instructorname";
         public static final String STUDENTS_ENROLLMENT_INFO = "enrollstudents";
+        
+        public static final String SINGLE_ENROLLMENT_PARAMS = "single_enrollment";
+        public static final String SINGLE_ENROLLMENT_SECTION = "single_section";
+        public static final String SINGLE_ENROLLMENT_TEAM = "single_teamid";
+        public static final String SINGLE_ENROLLMENT_NAME = "single_name";
+        public static final String SINGLE_ENROLLMENT_EMAIL = "single_email";
+        public static final String SINGLE_ENROLLMENT_COMMENT = "single_comment";
 
         public static final String INSTRUCTOR_IS_DISPLAYED_TO_STUDENT = "instructorisdisplayed";
         public static final String INSTRUCTOR_DISPLAY_NAME = "instructordisplayname";
@@ -927,9 +934,13 @@ public final class Const {
         public static final String INSTRUCTOR_COURSE_DELETE = "/page/instructorCourseDelete";
         public static final String INSTRUCTOR_COURSE_ARCHIVE = "/page/instructorCourseArchive";
         public static final String INSTRUCTOR_COURSE_DETAILS_PAGE = "/page/instructorCourseDetailsPage";
+        public static final String INSTRUCTOR_TEAM_DETAILS_PAGE = "/page/instructorTeamDetailsPage";
         public static final String INSTRUCTOR_COURSE_EDIT_PAGE = "/page/instructorCourseEditPage";
         public static final String INSTRUCTOR_COURSE_EDIT_SAVE = "/page/instructorCourseEditSave";
         public static final String INSTRUCTOR_COURSE_STUDENT_DETAILS_PAGE = "/page/instructorCourseStudentDetailsPage";
+        
+        public static final String INSTRUCTOR_COURSE_TEAM_DETAILS_PAGE = "/page/instructorCourseTeamDetailsPage";
+        
         public static final String INSTRUCTOR_COURSE_STUDENT_DETAILS_EDIT = "/page/instructorCourseStudentDetailsEdit";
         public static final String INSTRUCTOR_COURSE_STUDENT_DETAILS_EDIT_SAVE =
                 "/page/instructorCourseStudentDetailsEditSave";
@@ -1123,7 +1134,12 @@ public final class Const {
         public static final String INSTRUCTOR_COURSES = "/jsp/instructorCourses.jsp";
         public static final String INSTRUCTOR_COURSE_EDIT = "/jsp/instructorCourseEdit.jsp";
         public static final String INSTRUCTOR_COURSE_DETAILS = "/jsp/instructorCourseDetails.jsp";
+        public static final String INSTRUCTOR_TEAM_DETAILS = "/jsp/instructorTeamDetails.jsp";
         public static final String INSTRUCTOR_COURSE_STUDENT_DETAILS = "/jsp/instructorCourseStudentDetails.jsp";
+        
+        public static final String INSTRUCTOR_COURSE_TEAM_DETAILS = "/jsp/instructorCourseTeamDetails.jsp";
+        
+        
         public static final String INSTRUCTOR_COURSE_STUDENT_EDIT = "/jsp/instructorCourseStudentEdit.jsp";
         public static final String INSTRUCTOR_COURSE_ENROLL = "/jsp/instructorCourseEnroll.jsp";
         public static final String INSTRUCTOR_COURSE_ENROLL_RESULT = "/jsp/instructorCourseEnrollResult.jsp";

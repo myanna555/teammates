@@ -23,12 +23,18 @@
         <span class="glyphicon glyphicon-exclamation-sign glyphicon-primary"></span> If you want to enroll more then <strong>100</strong> students into one course, divide students into sections containing no more than <strong>100</strong> students.
       </div>
       <br>
+      <div class="container-fluid">
+      <div class="row">
+      
+      <div class="col-md-6">
+      
       <form action="${data.instructorCourseEnrollSaveLink}" method="post" class="form-horizontal" role="form">
         <input type="hidden" name="${SESSION_TOKEN}" value="${data.sessionToken}">
-        <div class="col-md-12">
+       
           <div class="form-group">
-            <label for="instructions" class="col-sm-1 control-label">Student data:</label>
-            <div class="col-sm-11">
+            <label for="instructions" class="control-label">Student data:</label>
+            <br/>
+            
               <textarea class="form-control" id="enrollstudents" name="enrollstudents" rows="6" cols="120" style="max-width:100%;" placeholder="Paste student data here ...">${fn:escapeXml(data.enrollStudents)}</textarea>
               <br>
 
@@ -36,14 +42,54 @@
 
               <button type="submit" title="Enroll" id="button_enroll" name="button_enroll" class="btn btn-primary btn-md">
                 Enroll students
-              </button>
-              <button type="submit" title="SingleEnroll" id="button_enroll_single" name="button_enroll_single" class="btn btn-primary btn-md">
-                Enroll single student
-              </button>
-            </div>
-          </div>
+              </button>      
+              
+            
+          
         </div>
       </form>
+      </div>
+      
+       <div class="col-md-6">
+       <form action="${data.instructorCourseEnrollSaveLink}" method="post" class="form-horizontal" role="form">
+        <input type="hidden" name="${SESSION_TOKEN}" value="${data.sessionToken}">
+       
+          <div class="form-group">
+          <label class="control-label">Section Name:</label>
+          <br/>
+          <input type="text" name="single_section" id="single_section"/>
+          <br/>
+          
+          <label class="control-label">Student Team Id:</label>
+          <br/>
+          <input type="text" name="single_teamid" id="single_teamid"/>
+          <br/>
+          
+          <label class="control-label">Student Name:</label>
+          <br/>
+          <input type="text" name="single_name" id="single_name"/>
+          <br/>
+          
+          <label class="control-label">Student Email:</label>
+          <br/>
+          <input type="text" name="single_email" id ="single_email"/>
+          <br/>
+          
+          <label class="control-label">Comments:</label>
+          <br/>
+          <input type="text" name="single_comments" id="single_comments"/>
+          <input type="hidden" name="single_enrollment" value="true"/>
+        <button type="submit" title="SingleEnroll" id="button_enroll_single" name="button_enroll_single" class="btn btn-primary btn-md">
+                Enroll a single student
+              </button>
+              </div>
+             </form>
+              
+       </div>
+      
+      
+      </div><!-- end forms row -->
+      </div>
     </div>
   </div>
 
