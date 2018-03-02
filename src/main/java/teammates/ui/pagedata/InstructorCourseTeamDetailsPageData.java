@@ -1,5 +1,8 @@
 package teammates.ui.pagedata;
 
+import java.util.List;
+
+import teammates.common.datatransfer.TeamDetailsBundle;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
@@ -10,15 +13,22 @@ public class InstructorCourseTeamDetailsPageData extends PageData{
     
     private StudentProfile studentProfile;
     private StudentInfoTable studentInfoTable;
+    private TeamDetailsBundle teamDetails;
 
-    public InstructorCourseTeamDetailsPageData(AccountAttributes account, String sessionToken, StudentAttributes student,
-            StudentProfileAttributes studentProfile, boolean hasSection) {
+    public InstructorCourseTeamDetailsPageData(AccountAttributes account, String sessionToken, TeamDetailsBundle td) {
         super(account, sessionToken);
-        if (studentProfile != null) {
+        if (td!=null) {
+            this.teamDetails = td;
+        }
+        else {
+            this.teamDetails = new TeamDetailsBundle();
+            this.teamDetails.name = "N/A";
+        }
+        /*if (studentProfile != null) {
             String pictureUrl = getPictureUrl(studentProfile.pictureKey);
             this.studentProfile = new StudentProfile(student.name, studentProfile, pictureUrl);
-        }
-        this.studentInfoTable = new StudentInfoTable(student, hasSection);
+        }*/
+        //this.studentInfoTable = new StudentInfoTable(student, hasSection);
     }
 
     public StudentProfile getStudentProfile() {
@@ -27,6 +37,10 @@ public class InstructorCourseTeamDetailsPageData extends PageData{
 
     public StudentInfoTable getStudentInfoTable() {
         return studentInfoTable;
+    }
+    
+    public TeamDetailsBundle getTeamDetails() {
+        return teamDetails;
     }
 
 }

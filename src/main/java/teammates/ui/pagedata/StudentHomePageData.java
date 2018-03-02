@@ -8,6 +8,7 @@ import teammates.common.datatransfer.CourseDetailsBundle;
 import teammates.common.datatransfer.FeedbackSessionDetailsBundle;
 import teammates.common.datatransfer.attributes.AccountAttributes;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
+import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.util.Const;
 import teammates.common.util.TimeHelper;
 import teammates.ui.template.CourseTable;
@@ -19,13 +20,23 @@ import teammates.ui.template.StudentHomeFeedbackSessionRow;
 public class StudentHomePageData extends PageData {
 
     private List<CourseTable> courseTables;
+    
 
     public StudentHomePageData(AccountAttributes account, String sessionToken,
                                List<CourseDetailsBundle> courses,
                                Map<FeedbackSessionAttributes, Boolean> sessionSubmissionStatusMap) {
         super(account, sessionToken);
         setCourseTables(courses, sessionSubmissionStatusMap);
+       
     }
+    
+    public StudentHomePageData(AccountAttributes account, String sessionToken,
+            List<CourseDetailsBundle> courses,
+            Map<FeedbackSessionAttributes, Boolean> sessionSubmissionStatusMap, Map<String, List<InstructorAttributes>> instructors) {
+super(account, sessionToken);
+setCourseTables(courses, sessionSubmissionStatusMap, instructors);
+
+}
 
     public List<CourseTable> getCourseTables() {
         return courseTables;
@@ -45,12 +56,33 @@ public class StudentHomePageData extends PageData {
             courseTables.add(courseTable);
         }
     }
+    
+
+    private void setCourseTables(List<CourseDetailsBundle> courses,
+                                 Map<FeedbackSessionAttributes, Boolean> sessionSubmissionStatusMap, Map<String, List<InstructorAttributes>> instructors) {
+        courseTables = new ArrayList<>();
+        int startingSessionIdx = 0; // incremented for each session row without resetting between courses
+        for (CourseDetailsBundle courseDetails : courses) {
+            CourseTable courseTable = new CourseTable(courseDetails.course,
+                                                      createCourseTableLinks(courseDetails.course.getId()),
+                                                      createSessionRows(courseDetails.feedbackSessions,
+                                                                        sessionSubmissionStatusMap,
+                                                                        startingSessionIdx));
+            startingSessionIdx += courseDetails.feedbackSessions.size();
+            //adding instructors for course table
+            courseTable.setInstructors(instructors.get(courseDetails.course.getId()));
+            courseTables.add(courseTable);
+        }
+    }
 
     private List<ElementTag> createCourseTableLinks(String courseId) {
         List<ElementTag> links = new ArrayList<>();
         links.add(new ElementTag("View Team",
                                  "href", getStudentCourseDetailsLink(courseId),
                                  "title", Const.Tooltips.STUDENT_COURSE_DETAILS));
+        links.add(new ElementTag("View instructor", 
+                "href", getInstructorProfileLink(courseId, "anna.lambrix@gmail.com"),
+                "title", "Whatever"));
         return links;
     }
 

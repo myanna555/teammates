@@ -635,6 +635,7 @@ public final class Const {
         public static final String CSV_TO_HTML_TABLE_NEEDED = "csvtohtmltable";
 
         public static final String COURSE_ID = "courseid";
+       
         public static final String COURSE_NAME = "coursename";
         public static final String COURSE_INDEX = "courseidx";
         public static final String COURSE_TIME_ZONE = "coursetimezone";
@@ -940,6 +941,7 @@ public final class Const {
         public static final String INSTRUCTOR_COURSE_STUDENT_DETAILS_PAGE = "/page/instructorCourseStudentDetailsPage";
         
         public static final String INSTRUCTOR_COURSE_TEAM_DETAILS_PAGE = "/page/instructorCourseTeamDetailsPage";
+        public static final String INSTRUCTOR_PROFILE_PAGE = "/page/instructorProfilePage";
         
         public static final String INSTRUCTOR_COURSE_STUDENT_DETAILS_EDIT = "/page/instructorCourseStudentDetailsEdit";
         public static final String INSTRUCTOR_COURSE_STUDENT_DETAILS_EDIT_SAVE =
@@ -1138,7 +1140,7 @@ public final class Const {
         public static final String INSTRUCTOR_COURSE_STUDENT_DETAILS = "/jsp/instructorCourseStudentDetails.jsp";
         
         public static final String INSTRUCTOR_COURSE_TEAM_DETAILS = "/jsp/instructorCourseTeamDetails.jsp";
-        
+        public static final String INSTRUCTOR_PROFILE_PAGE = "/jsp/instructorProfile.jsp";
         
         public static final String INSTRUCTOR_COURSE_STUDENT_EDIT = "/jsp/instructorCourseStudentEdit.jsp";
         public static final String INSTRUCTOR_COURSE_ENROLL = "/jsp/instructorCourseEnroll.jsp";

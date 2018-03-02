@@ -1,5 +1,10 @@
 package teammates.ui.controller;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import static com.googlecode.objectify.ObjectifyService.ofy;
+import teammates.common.datatransfer.TeamDetailsBundle;
 import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
@@ -8,7 +13,8 @@ import teammates.common.util.Assumption;
 import teammates.common.util.Const;
 import teammates.common.util.StatusMessage;
 import teammates.common.util.StatusMessageColor;
-import teammates.ui.pagedata.InstructorCourseStudentDetailsPageData;
+import teammates.storage.entity.TeamProfile;
+import teammates.ui.pagedata.InstructorCourseTeamDetailsPageData;
 
 public class InstructorCourseTeamDetailsPageAction extends Action{
     
@@ -16,62 +22,67 @@ public class InstructorCourseTeamDetailsPageAction extends Action{
     public ActionResult execute() throws EntityDoesNotExistException {
 
         String courseId = getRequestParamValue(Const.ParamsNames.COURSE_ID);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
+        //Assumption.assertPostParamNotNull(Const.ParamsNames.COURSE_ID, courseId);
 
-        String studentEmail = getRequestParamValue(Const.ParamsNames.STUDENT_EMAIL);
-        Assumption.assertPostParamNotNull(Const.ParamsNames.STUDENT_EMAIL, studentEmail);
+        
+        
+        String teamName = getRequestParamValue(Const.ParamsNames.TEAM_NAME);
+        //Assumption.assertPostParamNotNull(Const.ParamsNames.TEAM_NAME, teamName);
+        
+        InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
+        /*gateKeeper.verifyAccessible(instructor, logic.getCourse(courseId), student.section,
+                                    Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);*/
+        
+     
+        TeamDetailsBundle thisTeam = new TeamDetailsBundle();
+       
+        
+        List<TeamDetailsBundle> allTeams = logic.getTeamsForCourse(courseId);
+        
+        
+        for (TeamDetailsBundle team : allTeams) {
+            
+            if (team.name.equals(teamName)) {
+                
+                thisTeam.name = team.name;
+                thisTeam.students.addAll(team.students);
+                
+            }
+           
+        }
+        if(thisTeam.name == null) {
+            thisTeam.name = "N/A";
+        }
+        
+      
 
-        StudentAttributes student = logic.getStudentForEmail(courseId, studentEmail);
+       /* StudentAttributes student = logic.getStudentForEmail(courseId, studentEmail);
         if (student == null) {
             statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_NOT_FOUND_FOR_COURSE_DETAILS,
                                                StatusMessageColor.DANGER));
             isError = true;
             return createRedirectResult(Const.ActionURIs.INSTRUCTOR_HOME_PAGE);
         }
-        InstructorAttributes instructor = logic.getInstructorForGoogleId(courseId, account.googleId);
-        gateKeeper.verifyAccessible(instructor, logic.getCourse(courseId), student.section,
-                                    Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
+        */
+        
+        
 
         boolean hasSection = logic.hasIndicatedSections(courseId);
 
-        StudentProfileAttributes studentProfile = loadStudentProfile(student, instructor);
+        //StudentProfileAttributes studentProfile = loadStudentProfile(student, instructor);
 
-        InstructorCourseStudentDetailsPageData data =
-                new InstructorCourseStudentDetailsPageData(account, sessionToken, student, studentProfile,
-                                                           hasSection);
+        InstructorCourseTeamDetailsPageData data =
+                new InstructorCourseTeamDetailsPageData(account, sessionToken, thisTeam);
 
-        statusToAdmin = "instructorCourseStudentDetails Page Load<br>"
-                        + "Viewing details for Student <span class=\"bold\">" + studentEmail
+        statusToAdmin = "instructorCourseTeamDetails Page Load<br>"
+                        + "Viewing details for TEAM <span class=\"bold\">" + teamName
                         + "</span> in Course <span class=\"bold\">[" + courseId + "]</span>";
 
-        return createShowPageResult(Const.ViewURIs.INSTRUCTOR_COURSE_STUDENT_DETAILS, data);
+        return createShowPageResult(Const.ViewURIs.INSTRUCTOR_COURSE_TEAM_DETAILS, data);
 
     }
+    
 
-    private StudentProfileAttributes loadStudentProfile(StudentAttributes student, InstructorAttributes currentInstructor) {
-        StudentProfileAttributes studentProfile = null;
-        boolean isInstructorAllowedToViewStudent = currentInstructor.isAllowedForPrivilege(student.section,
-                                                        Const.ParamsNames.INSTRUCTOR_PERMISSION_VIEW_STUDENT_IN_SECTIONS);
-        boolean isStudentWithProfile = !student.googleId.isEmpty();
-        if (isInstructorAllowedToViewStudent && isStudentWithProfile) {
-            studentProfile = logic.getStudentProfile(student.googleId);
-            Assumption.assertNotNull(studentProfile);
-
-            return studentProfile;
-        }
-
-        // this means that the user is returning to the page and is not the first time
-        boolean hasExistingStatus = !statusToUser.isEmpty()
-                                        || session.getAttribute(Const.ParamsNames.STATUS_MESSAGES_LIST) != null;
-        if (!isStudentWithProfile && !hasExistingStatus) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_NOT_JOINED_YET_FOR_RECORDS,
-                                               StatusMessageColor.WARNING));
-        }
-        if (!isInstructorAllowedToViewStudent && !hasExistingStatus) {
-            statusToUser.add(new StatusMessage(Const.StatusMessages.STUDENT_PROFILE_UNACCESSIBLE_TO_INSTRUCTOR,
-                                               StatusMessageColor.WARNING));
-        }
-        return null;
-    }
+  
 
 }

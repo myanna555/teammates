@@ -88,7 +88,7 @@
                   <c:out value="${section.sectionName}"/>
                 </td>
                 <td id="studentteam-c${courseIndex}.${sectionIndex}.${teamIndex}">
-                 <a href="/page/instructorCourseTeamPage?user=test%40example.com&courseid=anna.lambrix.gma-demo&${team.teamName}"> <c:out value="${team.teamName}"/></a>
+                 <a href="/page/instructorCourseTeamDetailsPage?user=test%40example.com&courseid=anna.lambrix.gma-demo&teamname=${team.teamName}"> <c:out value="${team.teamName}"/></a>
                 </td>
                 <td id="studentname-c${courseIndex}.${studentIndex}">
                   <c:out value="${student.studentName}"/>

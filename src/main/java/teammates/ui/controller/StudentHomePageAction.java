@@ -8,12 +8,15 @@ import java.util.Map;
 import teammates.common.datatransfer.CourseDetailsBundle;
 import teammates.common.datatransfer.FeedbackSessionDetailsBundle;
 import teammates.common.datatransfer.attributes.FeedbackSessionAttributes;
+import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.util.Assumption;
 import teammates.common.util.Const;
 import teammates.common.util.StatusMessage;
 import teammates.common.util.StatusMessageColor;
+import teammates.storage.entity.Course;
+import teammates.storage.entity.Instructor;
 import teammates.ui.pagedata.StudentHomePageData;
 
 public class StudentHomePageAction extends Action {
@@ -25,10 +28,12 @@ public class StudentHomePageAction extends Action {
         String recentlyJoinedCourseId = getRequestParamValue(Const.ParamsNames.CHECK_PERSISTENCE_COURSE);
 
         List<CourseDetailsBundle> courses = new ArrayList<>();
+        Map<String, List<InstructorAttributes>> instructors = new HashMap<>();
         Map<FeedbackSessionAttributes, Boolean> sessionSubmissionStatusMap = new HashMap<>();
 
         try {
             courses = logic.getCourseDetailsListForStudent(account.googleId);
+            
             sessionSubmissionStatusMap = generateFeedbackSessionSubmissionStatusMap(courses, account.googleId);
 
             CourseDetailsBundle.sortDetailedCourses(courses);
@@ -42,6 +47,8 @@ public class StudentHomePageAction extends Action {
 
             for (CourseDetailsBundle course : courses) {
                 FeedbackSessionDetailsBundle.sortFeedbackSessionsByCreationTime(course.feedbackSessions);
+                //adding map entry with course id and list of instructors
+                instructors.put(course.getCourse().getId(), logic.getInstructorsForCourse(course.getCourse().getId()));
             }
 
         } catch (EntityDoesNotExistException e) {
@@ -52,8 +59,11 @@ public class StudentHomePageAction extends Action {
                 addPlaceholderCourse(courses, recentlyJoinedCourseId, sessionSubmissionStatusMap);
             }
         }
-
-        StudentHomePageData data = new StudentHomePageData(account, sessionToken, courses, sessionSubmissionStatusMap);
+        
+        
+        
+//overloaded constructor to get instructors data
+        StudentHomePageData data = new StudentHomePageData(account, sessionToken, courses, sessionSubmissionStatusMap, instructors);
 
         return createShowPageResult(Const.ViewURIs.STUDENT_HOME, data);
     }
