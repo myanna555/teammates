@@ -80,9 +80,7 @@ setCourseTables(courses, sessionSubmissionStatusMap, instructors);
         links.add(new ElementTag("View Team",
                                  "href", getStudentCourseDetailsLink(courseId),
                                  "title", Const.Tooltips.STUDENT_COURSE_DETAILS));
-        links.add(new ElementTag("View instructor", 
-                "href", getInstructorProfileLink(courseId, "anna.lambrix@gmail.com"),
-                "title", "Whatever"));
+     
         return links;
     }
 

@@ -21,7 +21,7 @@
 	  </div>
     <p >
       <c:forEach items="${courseTable.buttons}" var="button">
-        <span class="pull-right"><a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" ${button.attributesToString}>
+        <span><a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" ${button.attributesToString}>
           ${button.content}
         </a></span>
       </c:forEach>

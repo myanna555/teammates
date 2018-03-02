@@ -3,13 +3,16 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor" prefix="ti" %>
 <%@ taglib tagdir="/WEB-INF/tags/instructor/home" prefix="home" %>
-<h1> hello gato</h1>
+
 <c:set var="jsIncludes">
-  <script type="text/javascript" src="/js/instructorHome.js"></script>
+  <script type="text/javascript" src=""></script>
 </c:set>
 <ti:instructorPage title="Instructor Profile" jsIncludes="${jsIncludes}">
-  <home:search />
-  <br>
+  
   <t:statusMessage statusMessagesToUser="${data.statusMessagesToUser}" />
-
+   <c:if test="${not empty data.profile}">
+   <p>${data.profile.name}</p>
+    <p>${data.profile.email}</p>
+      <p>${data.profile.courseId}</p>
+</c:if>
 </ti:instructorPage>
